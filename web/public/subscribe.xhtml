@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/layout.xhtml">
+        <ui:define name="title">Inscription</ui:define>
+        <ui:define name="body">
+            <h3>Inscription</h3>
+            <c:if test="">
+                <div class="alert alert-danger" role="alert">
+                    <h:messages />
+                </div>
+            </c:if>
+            <h:form>
+                <div class="form-group">
+                    <h:outputLabel value="Identifiant" for="username"/>
+                    <h:inputText class="form-control" value="#{userBean.newUser.username}" id="username"/>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Mot de passe" for="password"/>
+                    <h:inputSecret class="form-control" value="#{userBean.newUser.password}" id="password" required="true"/>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Email" for="email"/>
+                    <h:inputText class="form-control" value="#{userBean.newUser.email}" id="email" required="true"/>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <h:outputLabel value="Prénom" for="firstName"/>
+                        <h:inputText class="form-control" value="#{userBean.newUser.firstName}" id="firstName" required="true"/>
+                    </div>
+                    <div class="form-group col-6">
+                        <h:outputLabel value="Nom" for="lastName"/>
+                        <h:inputText class="form-control" value="#{userBean.newUser.lastName}" id="lastName" required="true"/>
+                    </div>
+                </div>
+                <h:commandButton class="btn btn-primary" action="#{userBean.signup()}" value="S'inscrire"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/layout.xhtml">
+        <ui:define name="title">Se connecter</ui:define>
+        <ui:define name="body">
+            <h:form >
+            <h:panelGrid columns="2" >
+                <f:facet name="header">
+                    <h:outputText value="Login Form"/>
+                </f:facet>
+                <h:outputLabel value="Username" for="username"/>
+                <h:inputText value="#{userBean.username}" id="username"/>
+                <h:outputLabel value="Password" for="password"/>
+                <h:inputSecret value="#{userBean.password}" id="password"/>
+
+                <f:facet name="footer">
+                    <div style="align-items: center">
+                        <h:commandButton action="#{userBean.login()}" value="Login"/>
+                    </div>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
