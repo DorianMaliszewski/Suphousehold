@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <ui:composition>
+    <ui:composition template="/layout.xhtml">
         <ui:define name="title">Mon profil</ui:define>
         <ui:define name="body">
             <div>
                 <h1>Mon profil</h1>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Prénom</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value="#{userBean.connectedUser.firstName}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Nom</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value="#{userBean.connectedUser.lastName}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Identifiant</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value="#{userBean.connectedUser.username}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Mot de passe</span>
+                    </div>
+                    <div class="col-9">
+                        <a class="btn btn-primary" href="${request.contextPath}/faces/private/changePasswd.xhtml">Changer le mot de passe</a>
+                    </div>
+                </div>
             </div>
         </ui:define>
     </ui:composition>

@@ -24,6 +24,6 @@ public interface UserDao {
      */
     Optional<User> authenticate(String userName, String password);
     
-    User addUser(User user);
     Long count();
+    User save(User user);
 }

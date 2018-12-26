@@ -24,7 +24,23 @@ public class JpaPurchaseDao implements PurchaseDao {
 
     @Override
     public List<Purchase> findByUserId(Long id) {
-        return this.em.createNamedQuery("purchase.findByUserId").getResultList();
+        return this.em.createNamedQuery("purchase.findByUserId").setParameter("userId", id).getResultList();
+    }
+
+    @Override
+    public Purchase findById(Long id) {
+        return this.em.find(Purchase.class, id);
+        
+    }
+
+    @Override
+    public List<Purchase> findAll() {
+        return this.em.createQuery("Select p from Purchase p").getResultList();
+    }
+
+    @Override
+    public void save(Purchase p) {
+        this.em.persist(p);
     }
     
 }

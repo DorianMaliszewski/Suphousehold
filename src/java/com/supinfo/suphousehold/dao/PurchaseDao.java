@@ -15,5 +15,11 @@ import java.util.List;
 public interface PurchaseDao {
 
     List<Purchase> findByUserId(Long id);
+
+    public Purchase findById(Long id);
+
+    public List<Purchase> findAll();
+
+    public void save(Purchase p);
     
 }

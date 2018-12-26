@@ -6,22 +6,23 @@
     <ui:composition template="/layout.xhtml">
         <ui:define name="title">Se connecter</ui:define>
         <ui:define name="body">
-            <h:form >
-            <h:panelGrid columns="2" >
-                <f:facet name="header">
-                    <h:outputText value="Login Form"/>
-                </f:facet>
-                <h:outputLabel value="Username" for="username"/>
-                <h:inputText value="#{userBean.username}" id="username"/>
-                <h:outputLabel value="Password" for="password"/>
-                <h:inputSecret value="#{userBean.password}" id="password"/>
-
-                <f:facet name="footer">
-                    <div style="align-items: center">
-                        <h:commandButton action="#{userBean.login()}" value="Login"/>
+            <h:form class="card">
+                <div class="card-header">
+                    <h2>Se connecter</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <h:outputLabel class="col-3" value="Username" for="username"/>
+                        <h:inputText class="col-5 form-control" value="#{userBean.username}" id="username"/>                    
                     </div>
-                </f:facet>
-            </h:panelGrid>
+                    <div class="row">
+                        <h:outputLabel class="col-3" value="Password" for="password"/>
+                        <h:inputSecret class="col-5 form-control" value="#{userBean.password}" id="password"/>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <h:commandButton class="btn btn-success" action="#{userBean.login()}" value="Connexion"/>
+                    </div>
+                </div>
         </h:form>
         </ui:define>
     </ui:composition>

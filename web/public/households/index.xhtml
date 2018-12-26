@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/layout.xhtml">
+        <ui:define name="title">Détail d'une commande</ui:define>
+        <ui:define name="body">
+            <div class="row" >
+                <h3>Catalogue</h3>
+            </div>
+            <h:dataTable value="#{householdBean.findAll()}" styleClass="table table-striped table-bordered" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modèle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.model}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Stock"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stock}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+                            <h:form>
+                                <h:commandButton class="btn btn-primary" action="#{householdBean.showDetail(item.id)}" value="Détails"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+        </ui:define>
+    </ui:composition>
+</html>

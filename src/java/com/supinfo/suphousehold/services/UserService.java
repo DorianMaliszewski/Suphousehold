@@ -24,4 +24,5 @@ public interface UserService {
     
     User addUser(User user);
     Long countUsers();
+    User saveUser(User user);
 }

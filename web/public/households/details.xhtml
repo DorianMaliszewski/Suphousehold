@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/layout.xhtml">
+        <ui:define name="title"><h:outputText value="#{householdBean.household.id}" /> - Détail d'une pièce détachée</ui:define>
+        <ui:define name="body">
+            <div>
+                <h1>#{householdBean.household.id} - #{householdBean.household.description}</h1>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Decription</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value="#{householdBean.household.description}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Modele compatible</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value="#{householdBean.household.model}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Prix unitaire</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value="#{householdBean.household.price}" /> €
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Disponibilité</span>
+                    </div>
+                    <div class="col-9">
+                        <h:outputText value='#{householdBean.household.stock > 0 ? "En stock" : "Stock épuisé"}' />
+                    </div>
+                </div>
+                <h:panelGroup rendered="#{userBean.connectedUser != null and householdBean.canAddToCart()}">
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <h:form>
+                                <h:commandButton action="#{userBean.addToCart(householdBean.household)}" value="Ajouter au panier" class="btn btn-primary" />
+                            </h:form>
+                        </div>
+                    </div>
+                </h:panelGroup  >
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
