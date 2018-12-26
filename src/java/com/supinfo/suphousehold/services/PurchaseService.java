@@ -13,4 +13,8 @@ import com.supinfo.suphousehold.entities.Purchase;
  */
 public interface PurchaseService {
     List<Purchase> findMyPurchases(Long id);
+    List<Purchase> findAll();
+    Purchase find(Long id);
+
+    public void save(Purchase p);
 }

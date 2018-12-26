@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/layout.xhtml">
+        <ui:define name="title">Mes achats</ui:define>
+        <ui:define name="body">
+            <h1>Mes achats</h1>
+            <h:dataTable value="#{userBean.getPanier()}" styleClass="table table-striped table-bordered" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modele"/>
+                            </f:facet>
+                            <h:outputText value="#{item.model}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix Unitaire HT"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+                            <h:form>
+                                <h:commandButton class="btn btn-primary" action="#{householdBean.showDetail(item.id)}" value="Détails"/>
+                                <h:commandButton class="btn btn-danger ml-2" action="#{userBean.removeToCart(item)}" value="Retirer"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+            
+            <div class="row">
+                <div class="col-3">
+                    Total HT
+                </div>
+                <div class="col-9">
+                    #{userBean.getTotalHT()}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    TVA
+                </div>
+                <div class="col-9">
+                    20%
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    Total
+                </div>
+                <div class="col-9">
+                    #{userBean.getTotalTTC()}
+                </div>
+            </div>
+            <c:if test="#{userBean.panier.size() > 0}">
+                <hr />
+                <div class="row pt-5 d-flex justify-content-center">
+                    <h:form>
+                        <h:commandButton class="btn btn-primary" onclick="return confirm('Etes-vous sur de vouloir acheter ces articles ?')" type="submit" action="#{userBean.buy()}" value="Acheter" />
+                    </h:form>
+                </div>
+            </c:if>
+        </ui:define>
+    </ui:composition>
+</html>

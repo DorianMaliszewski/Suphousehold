@@ -11,7 +11,8 @@ and open the template in the editor.
         <ui:define name="title">Mes achats</ui:define>
         <ui:define name="body">
             <h1>Mes achats</h1>
-            <h:dataTable value="#{purchaseBean.myPurchases}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+            <hr class="mb-3"/>
+            <h:dataTable value="#{purchaseBean.getMyPurchases()}" styleClass="table table-striped table-bordered" var="item">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
@@ -20,9 +21,9 @@ and open the template in the editor.
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Crée par"/>
+                                <h:outputText value="Total"/>
                             </f:facet>
-                            <h:outputText value="#{item.createdBy}"/>
+                            <h:outputText value="#{item.total}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -32,9 +33,11 @@ and open the template in the editor.
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value=" "/>
                             </f:facet>
-                            <h:commandLink action="#{utilisateurController.prepareView}" value="#{bundle.ListUtilisateurViewLink}"/>
+                            <h:form>
+                                <h:commandLink action="#{purchaseBean.showDetail(item.id)}" value="Détails"/>
+                            </h:form>
                         </h:column>
                     </h:dataTable>
         </ui:define>

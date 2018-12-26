@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />
         <style>
             main.container {
-                margin-top: 75px;
+                margin-top: 100px;
             }
         </style>
     </head>
@@ -23,11 +23,14 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#{request.contextPath}/faces/index.xhtml">Accueil <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#{request.contextPath}/faces/index.xhtml">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#{request.contextPath}/faces/public/households/index.xhtml">Catalogue</a>
                     </li>
                     <c:choose>
-                        <c:when test="#{userBean.connectedUser}">
+                        <c:when test="#{userBean.connectedUser != null}">
                             <li class="nav-item">
                                 <a class="nav-link" href="#{request.contextPath}/faces/private/my-purchases.xhtml">Mes achats</a>
                             </li>
@@ -35,7 +38,8 @@
                                 <a class="nav-link" href="#{request.contextPath}/faces/private/profile.xhtml">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <h:commandLink class="nav-link" action="#{userBean.logout()}">Déconnexion</h:commandLink>
+                                <a class="nav-link" href="#{request.contextPath}/faces/private/my-cart.xhtml">
+                                    <i class="fas fa-shopping-cart"></i> Mon panier</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -48,14 +52,21 @@
                         </c:otherwise>
                     </c:choose>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <h:form class="form-inline my-2 my-lg-0">
+                    <h:inputText class="form-control mr-sm-2" value="#{userBean.searchText}"/>
+                    <h:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{userBean.search()}" type="submit" value="Rechercher"/>
+                </h:form>
+                <c:if test="${userBean.connectedUser != null}">
+                    <h:form class="form-inline ml-2">
+                        <h:commandLink styleClass="btn btn-outline-danger" action="#{userBean.logout()}">
+                            <i class="fa fa-power-off"></i>
+                        </h:commandLink>
+                    </h:form>
+                </c:if>
             </div>
         </nav>
         <main role="main" class="container">
-
+            <h:messages infoClass="alert alert-primary" style="list-style: none" errorClass="alert alert-danger" fatalClass="alert alert-danger" warnClass="alert alert-warning"></h:messages>
             <ui:insert name="body">Aucun contenu</ui:insert>
 
         </main>
@@ -63,5 +74,6 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"  crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script defer="true" src="https://use.fontawesome.com/releases/v5.6.1/js/all.js" crossorigin="anonymous"></script>
     </body>
 </html>
