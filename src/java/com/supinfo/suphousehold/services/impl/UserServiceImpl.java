@@ -29,12 +29,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        return this.userDao.addUser(user);
+        return this.userDao.save(user);
     }
 
     @Override
     public Long countUsers() {
         return this.userDao.count();
+    }
+
+    @Override
+    public User saveUser(User user) {
+        return this.userDao.save(user);
     }
 
 }

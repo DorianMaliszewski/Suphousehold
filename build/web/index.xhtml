@@ -2,18 +2,63 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/layout.xhtml">
         <ui:define name="title">Accueil</ui:define>
         <ui:define name="body">
             <h1>SupHousehold</h1>
-            <p>Détail du site</p>
-            <div>
-                <h3>Statistiques</h3>
-                <div>
-                    <h:outputText value="Nombre d'utilisateur #{userBean.getNbUsers()}"></h:outputText>
-                </div>
+            <div class="mt-5 row">
+                <h3 class="col-12">Suphousehold c'est ...</h3>
+                <ul style="list-style: none; font-size: 1.5rem">
+                    <li>
+                        <h:outputText value="#{userBean.getNbUsers()} utilisateurs"></h:outputText>
+                    </li>
+                    <li>
+                        <h:outputText value="#{householdBean.findAll().size()} pièces détachées"></h:outputText>
+                    </li>
+                </ul>
             </div>
+            <c:if test="#{userBean.itemsFinded != null}">
+                <div>
+                    <hr />
+                    <div class="row">
+                        <h3> Résultat de votre recherche pour #{userBean.searchText} </h3>
+                    </div>
+                    <p>Nombre de résultats : #{userBean.itemsFinded.size()}</p>
+                    <div class="row">
+                        <h:dataTable value="#{userBean.itemsFinded}" styleClass="table table-striped table-bordered" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modèle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.model}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Stock"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stock}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+                            <h:form>
+                                <h:commandButton class="btn btn-primary" action="#{householdBean.showDetail(item.id)}" value="Détails"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                    </div>
+                </div>
+            </c:if>
         </ui:define>
     </ui:composition>
 </html>

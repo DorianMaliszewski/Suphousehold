@@ -35,7 +35,6 @@ public class JpaUserDao implements UserDao {
                     .getSingleResult();
         } catch (NoResultException nre) {
             // If there is no result then return an empty optional.
-            nre.printStackTrace();
             return Optional.empty();
         }
 
@@ -43,16 +42,20 @@ public class JpaUserDao implements UserDao {
     }
 
     @Override
-    public User addUser(User user) {
-        em.persist(user);
-        return user;
-    }
-
-    @Override
     public Long count() {
         CriteriaQuery<Long> q = this.em.getCriteriaBuilder().createQuery(Long.class);
         q.select(this.em.getCriteriaBuilder().count(q.from(User.class)));
         return this.em.createQuery(q).getSingleResult();
+    }
+
+    @Override
+    public User save(User user) {
+        if (user.getId() == null) {
+            em.persist(user);
+        } else {
+            em.merge(user);
+        }
+        return user;
     }
     
     
