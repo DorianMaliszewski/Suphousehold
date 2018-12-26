@@ -8,7 +8,6 @@ package com.supinfo.suphousehold.dao.jpa;
 import com.supinfo.suphousehold.dao.PurchaseDao;
 import com.supinfo.suphousehold.entities.Purchase;
 import java.util.List;
-import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

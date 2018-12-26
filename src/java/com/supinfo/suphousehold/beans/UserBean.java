@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
- *
+ * Managed Bean Stateful pour gérer toutes les action d'un client sur l'application
  * @author Dorian Maliszewski
  */
 @Stateful
@@ -55,6 +55,10 @@ public class UserBean implements Serializable {
     public UserBean() {
     }
 
+    /**
+     * Connecte l'utilisateur
+     * @return Retourne vers une page confirmantr la connexion sinon redirige vers la page de connexion avec l'erreur soulevée
+     */
     public String login() {
 
         Optional<User> user = this.userService.authenticate(username, password);
@@ -71,6 +75,10 @@ public class UserBean implements Serializable {
         return "/private/index.xhtml?faces-redirect=true";
     }
 
+    /**
+     * Inscrit un nouvel utilisateur en l'ajoutant dans la bdd et le connecte
+     * @return Retourne sur la page de confirmation de connexion si tous c'est bien passé sinon redirige sur la page d'inscription
+     */
     public String signup() {
         String redirectTo = "/public/subscribe.xhtml";
         FacesMessage facesMessage = null;
@@ -89,11 +97,19 @@ public class UserBean implements Serializable {
         return redirectTo + "?faces-redirect=true";
     }
 
+    /**
+     * Déconnecte l'utilisateur
+     * @return Retourne vers la page d'accueil
+     */
     public String logout() {
         this.connectedUser = null;
         return "/index.xhtml?faces-redirect=true";
     }
 
+    /**
+     * Permet de modifier le mot de passe de l'utilisateur connecte
+     * @return Retourne la page de confirmation de connexion si ok sinon retourne vers la page de changement de mot de passe en affichant les problemes
+     */
     public String changePassword() {
         FacesMessage facesMessage = null;
         String redirectTo = "";
@@ -117,22 +133,39 @@ public class UserBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         return redirectTo;
     }
-    
+    /**
+     * Ajoute un article dans le panier
+     * @param household L'article a ajouter
+     * @return La vue ou se trouve la liste des pièces
+     */
     public String addToCart (Household household) {
         this.panier.add(household);
         return "/public/households/index.xhtml";
     }
     
+    /**
+     * Retire un article du panier
+     * @param household L'articler a retirer
+     * @return Redirige vers la vue du panier
+     */
     public String removeToCart (Household household) {
         this.panier.remove(household);
         return "/private/my-cart.xhtml";
     }
     
+    /**
+     * Rechercher les pièces détachée dans la BDD possèdant dans leur description la chaine de caractere de l'attribut "search"
+     * @return Redirige vers la vue d'index avec la liste alimenté
+     */
     public String search() {
         this.itemsFinded = this.householdService.search(this.searchText);
         return "/faces/index.xhtml?faces-redirect=true";
     }
     
+    /**
+     * Renvoi le total Ht du panier
+     * @return Total HT
+     */
     public Double getTotalHT() {
         Double ht = 0D;
         for(Household h: this.panier) {
@@ -141,10 +174,18 @@ public class UserBean implements Serializable {
         return ht;
     }
     
+    /**
+     * renvoi le total TTC avec une TVA a 20%
+     * @return Total TTC
+     */
     public Double getTotalTTC() {
         return this.getTotalHT() * 1.20;
     }
     
+    /**
+     * Enregistre l'achat du panier par l'utilisateur
+     * @return Redirige vers la vue ou se trouve toutes ses commandes
+     */
     public String buy() {
         Purchase p = new Purchase();
         p.setItems(this.panier);
@@ -155,6 +196,10 @@ public class UserBean implements Serializable {
         return "/private/my-purchases.xhtml";
     }
 
+    /**
+     * Récupère le nombres d'utilisateur dans la bdd
+     * @return 
+     */
     public Long getNbUsers() {
         return this.userService.countUsers();
     }
